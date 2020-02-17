@@ -1,0 +1,7 @@
+---
+
+- name: setup mescalina
+  hosts: mescalina
+  roles:
+    - { role: users }
+
