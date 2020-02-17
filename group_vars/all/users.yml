@@ -14,6 +14,7 @@ users:
   ljmf00:
     name: 'Luís Ferreira'
     ssh_key: ljmf00.pub
+    shell: /usr/bin/zsh
     groups:
       - user
       - admin
