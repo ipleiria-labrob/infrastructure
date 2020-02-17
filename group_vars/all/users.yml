@@ -1,0 +1,19 @@
+---
+
+user_groups:
+  - user
+  - admin
+
+users:
+  ffy00:
+    name: 'Filipe Laíns'
+    ssh_key: ffy00.pub
+    groups:
+      - user
+      - admin
+  ljmf00:
+    name: 'Luís Ferreira'
+    ssh_key: ljmf00.pub
+    groups:
+      - user
+      - admin
