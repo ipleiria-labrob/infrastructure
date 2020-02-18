@@ -4,5 +4,6 @@
   hosts: mescalina
   roles:
     - { role: users, tags: ['users'] }
+    - { role: common, tags: ['common'] }
     - { role: ssh_root, tags: ['ssh_root'] }
 
