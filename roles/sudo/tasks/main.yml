@@ -1,0 +1,24 @@
+---
+
+- name: install sudo
+  pacman: name=sudo state=present
+
+- name: add wheel group
+  group: name=wheel state=present
+
+# https://github.com/ansible/ansible/issues/11024
+- name: remove all users from wheel group
+  command: groupmems -g wheel --purge
+
+- name: add sudo users to wheel
+  user: name='{{ item.key }}' append=yes groups=wheel
+  with_dict: '{{ users }}'
+  when: '"admin" in item.value.groups'
+
+- name: enable sudoers.d support
+  lineinfile:
+    path: /etc/sudoers
+    line: '#includedir /etc/sudoers.d'
+
+- name: install sudo rule
+  copy: src=wheel_group dest=/etc/sudoers.d/wheel_group mode=0644 owner=root group=root
