@@ -3,6 +3,6 @@
 - name: setup mescalina
   hosts: mescalina
   roles:
-    - { role: users }
-    - { role: ssh_root }
+    - { role: users, tags: ['users'] }
+    - { role: ssh_root, tags: ['ssh_root'] }
 
