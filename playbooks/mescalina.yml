@@ -7,4 +7,4 @@
     - { role: common, tags: ['common'] }
     - { role: ssh_root, tags: ['ssh_root'] }
     - { role: sudo, tags: ['sudo'] }
-
+    - { role: libvirt, tags: ['libvirt'] }
