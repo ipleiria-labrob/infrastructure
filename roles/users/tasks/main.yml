@@ -1,7 +1,10 @@
 ---
 
 - name: create user groups
-  group: name='{{ item }}' state=present system=no
+  group:
+    name: '{{ item }}'
+    state: present
+    system: no
   with_items: '{{ user_groups }}'
 
 - name: create users
@@ -17,24 +20,40 @@
   with_dict: '{{ users }}'
 
 - name: create .ssh directory
-  file: path=/home/{{item.key}}/.ssh state=directory owner={{item.key}} group=users mode=0700
+  file:
+    path: /home/{{item.key}}/.ssh
+    state: directory
+    owner: '{{ item.key }}'
+    group: users
+    mode: 0700
   with_dict: '{{ users }}'
 
 - name: configure ssh keys
-  template: src=authorized_keys.j2 dest=/home/{{item.key}}/.ssh/authorized_keys owner={{item.key}} group=users mode=0600
+  template:
+    src: authorized_keys.j2
+    dest: /home/{{item.key}}/.ssh/authorized_keys
+    owner: '{{ item.key }}'
+    group: users
+    mode: 0600
   when: item.value.ssh_key is defined
   with_dict: '{{ users }}'
 
 - name: remove ssh keys if undefined
-  file: path=/home/{{item.key}}/.ssh/authorized_keys state=absent
+  file:
+    path: /home/{{item.key}}/.ssh/authorized_keys
+    state: absent
   when: item.value.ssh_key is not defined
   with_dict: '{{ users }}'
 
 - name: get list of remote users
-  find: paths='/home' file_type='directory'
+  find:
+    paths: '/home'
+    file_type: 'directory'
   register: all_users
 
 - name: disable ssh keys of disabled users
-  file: path='/home/{{ item }}/.ssh/authorized_keys' state=absent
+  file:
+    path: '/home/{{ item }}/.ssh/authorized_keys'
+    state: absent
   when: item not in users
   with_items: '{{ all_users.files | map(attribute="path") | map("basename") | list }}'
