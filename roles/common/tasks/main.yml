@@ -1,13 +1,27 @@
 ---
 
 - name: install devtools
-  pacman: name=devtools state=installed
+  pacman:
+    name: devtools
+    state: installed
 
 - name: install pacman-contrib
-  pacman: name=pacman-contrib state=installed
+  pacman:
+    name: pacman-contrib
+    state: installed
 
 - name: install pacman config
-  copy: src=pacman.conf dest=/etc/pacman.conf mode=0644 owner=root group=root
+  copy:
+    src: pacman.conf
+    dest: /etc/pacman.conf
+    mode: 0644
+    owner: root
+    group: root
 
 - name: install mirrorlist
-  copy: src=mirrorlist dest=/etc/pacman.d/mirrorlist mode=0644 owner=root group=root
+  copy:
+    src: mirrorlist
+    dest: /etc/pacman.d/mirrorlist
+    mode: 0644
+    owner: root
+    group: root
