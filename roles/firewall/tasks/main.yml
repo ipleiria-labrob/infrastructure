@@ -1,0 +1,41 @@
+---
+
+- name: install ufw
+  pacman: name=ufw state=present
+
+- name: install ufw-extras
+  pacman: name=ufw-extras state=present
+
+- name: allow ssh connections
+  ufw:
+    rule: allow
+    port: ssh
+    proto: tcp
+
+- name: add sysctl configuration
+  template:
+    dest: /etc/ufw/sysctl.conf
+    src: sysctl.conf.j2
+
+- name: enable ufw
+  ufw:
+    state: enabled
+
+- name: set allow default policy for forwarding
+  template:
+    dest: /etc/default/ufw
+    src: ufw.j2
+
+- name: set deny default policy
+  ufw:
+    policy: deny
+
+- name: set logging
+  ufw:
+    logging: 'on'
+
+- name: enable and start ufw service
+  systemd:
+    name: ufw
+    state: restarted
+    enabled: yes

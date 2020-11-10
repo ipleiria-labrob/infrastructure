@@ -6,5 +6,6 @@
     - { role: users, tags: ['users'] }
     - { role: common, tags: ['common'] }
     - { role: ssh_root, tags: ['ssh_root'] }
+    - { role: firewall, tags: ['firewall'] }
     - { role: sudo, tags: ['sudo'] }
     - { role: libvirt, tags: ['libvirt'] }
